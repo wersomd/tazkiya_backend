@@ -1,0 +1,36 @@
+# Скомпилированные бинарники
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+
+# Директория с бинарниками (если создаёшь /bin или /build)
+bin/
+build/
+
+# Кэш Go-модуля
+/pkg/
+/vendor/
+
+# Временные и лог-файлы
+*.log
+*.out
+*.tmp
+
+# IDE и редакторы
+.idea/
+.vscode/
+*.swp
+
+# Операционные системы
+.DS_Store
+Thumbs.db
+
+# Конфиги и переменные окружения
+.env
+.env.*
+*.local
+config.yaml
+config.json
