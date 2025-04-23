@@ -9,18 +9,24 @@ import (
 type Muftyat struct {
 	BaseURL string
 	City    string
-	Country string
+}
+
+type PrayerEntry struct {
+	Fajr    string `json:"fajr"`
+	Sunrise string `json:"sunrise"`
+	Dhuhr   string `json:"dhuhr"`
+	Asr     string `json:"asr"`
+	Maghrib string `json:"maghrib"`
+	Isha    string `json:"isha"`
+	Date    string `json:"Date"`
 }
 
 type PrayerResponse struct {
-	Data struct {
-		Timings map[string]string `json:"timings"`
-	} `json:"data"`
+	Result []PrayerEntry `json:"result"`
 }
 
-func (c *Muftyat) GetPrayerTimes() (map[string]string, error) {
-	url := fmt.Sprintf("%s?city=%s&country=%s&method=2", c.BaseURL, c.City, c.Country)
-	resp, err := http.Get(url)
+func (c *Muftyat) GetPrayerTimes() ([]PrayerEntry, error) {
+	resp, err := http.Get(c.BaseURL)
 	if err != nil {
 		return nil, err
 	}
@@ -31,5 +37,9 @@ func (c *Muftyat) GetPrayerTimes() (map[string]string, error) {
 		return nil, err
 	}
 
-	return res.Data.Timings, nil
+	if len(res.Result) == 0 {
+		return nil, fmt.Errorf("no prayer times found")
+	}
+
+	return res.Result, nil
 }

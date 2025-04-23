@@ -6,6 +6,6 @@ type PrayerService struct {
 	Client *client.Muftyat
 }
 
-func (s *PrayerService) GetTodayPrayerTimes() (map[string]string, error) {
+func (s *PrayerService) GetTodayPrayerTimes() ([]client.PrayerEntry, error) {
 	return s.Client.GetPrayerTimes()
 }
